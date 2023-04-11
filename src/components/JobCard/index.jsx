@@ -32,28 +32,13 @@ const JobCard = ({
             totalEmployees,
             applyType,
         });
-        console.log({
-            id,
-            jobTitle,
-            companyName,
-            industry,
-            location,
-            remoteType,
-            minExperience,
-            maxExperience,
-            minSalary,
-            maxSalary,
-            totalEmployees,
-            applyType,
-        });
+
         setCreateJobDialog(true);
     };
     const handleDelete = async () => {
-        await axios
-            .delete(`https://64345dd51c5ed06c9595de94.mockapi.io/api/job/${id}`)
-            .then((res) => {
-                console.log(res);
-            });
+        await axios.delete(
+            `https://64345dd51c5ed06c9595de94.mockapi.io/api/job/${id}`
+        );
     };
 
     return (

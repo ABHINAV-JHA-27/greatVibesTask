@@ -54,7 +54,6 @@ const Layout = () => {
             <CreateForm
                 visible={createJobDialog}
                 close={() => {
-                    console.log("close");
                     setCreateJobDialog(false);
                 }}
                 jobDialogData={jobDialogData}

@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 
 const CreateForm = ({ visible, close, jobDialogData = null }) => {
-    console.log("==>>> ", jobDialogData);
     const [jobTitle, setJobTitle] = useState("" || jobDialogData.jobTitle);
     const [companyName, setCompanyName] = useState(
         "" || jobDialogData.companyName
