@@ -42,7 +42,7 @@ const JobCard = ({
     };
 
     return (
-        <div className="flex bg-white w-[47%] h-[40%] border-[1px] border-[#DADEDF] rounded-[10px] m-2 flex-col">
+        <div className="flex bg-white md:w-[47%] md:h-[45%] w-[90%] h-[42%] border-[1px] border-[#DADEDF] rounded-[10px] m-2 flex-col overflow-hidden">
             <div className="flex flex-row w-[100%] m-2">
                 <div className="flex flex-col w-[10%]">
                     <img
@@ -86,20 +86,24 @@ const JobCard = ({
                             {totalEmployees} employees
                         </span>
                     </div>
-                    <div className="flex flex-row w-[100%] mt-4">
-                        <div className="bg-[#1597E4] rounded-[5px] p-1">
-                            <span className="text-white font-normal font-[poppins] font-medium text-sm">
+                    {applyType == "both" ? (
+                        <div className="flex flex-row w-[100%] mt-4">
+                            <button className="bg-[#1597E4] rounded-[5px] p-1 text-white font-normal font-[poppins] font-medium text-sm">
                                 Apply Now
-                            </span>
-                        </div>
-                        <div className="bg-white border-[1px] border-[#1597E4] rounded-[5px] ml-3 p-1">
-                            <span className="text-[#1597E4] font-normal font-[poppins] font-medium text-sm">
+                            </button>
+                            <button className="bg-white border-[1px] border-[#1597E4] rounded-[5px] ml-3 p-1 text-[#1597E4] font-normal font-[poppins] font-medium text-sm">
                                 External Apply
-                            </span>
+                            </button>
                         </div>
-                    </div>
+                    ) : (
+                        <div className="flex flex-row w-[100%] mt-4">
+                            <button className="bg-[#1597E4] rounded-[5px] p-1 text-white font-normal font-[poppins] font-medium text-sm">
+                                {applyType}
+                            </button>
+                        </div>
+                    )}
                 </div>
-                <div className="flex-col w-[10%] m-2">
+                <div className="flex-col w-[8%] m-4">
                     <button onClick={handleEdit}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +111,7 @@ const JobCard = ({
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
                             stroke="currentColor"
-                            className="w-5 h-5 m-2"
+                            className="w-5 h-5"
                         >
                             <path
                                 strokeLinecap="round"
@@ -123,7 +127,7 @@ const JobCard = ({
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
                             stroke="currentColor"
-                            className="w-6 h-6 m-2"
+                            className="w-6 h-6 mt-2"
                         >
                             <path
                                 strokeLinecap="round"

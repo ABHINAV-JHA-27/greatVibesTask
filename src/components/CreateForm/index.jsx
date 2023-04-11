@@ -102,7 +102,7 @@ const CreateForm = ({ visible, close, jobDialogData = null }) => {
     return (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
             {showForm2 ? (
-                <div className="flex bg-white w-[40vw] h-[70vh] border-[1px] border-[#E6E6E6] rounded-[10px] m-2 flex-col relative top-20 mx-auto">
+                <div className="flex bg-white md:w-[40%] md:h-[70%] w-[90%] h-[80%] border-[1px] border-[#E6E6E6] rounded-[10px] m-2 flex-col relative top-20 mx-auto">
                     <div className="flex flex-row w-[96%] ml-4 mt-5 items-center">
                         <div className="flex w-[50%]">
                             <span className="text-base font-medium text-black font-[poppins]">
@@ -229,7 +229,7 @@ const CreateForm = ({ visible, close, jobDialogData = null }) => {
             ) : (
                 <div
                     className={
-                        "flex bg-white w-[40vw] h-[70vh] border-[1px] border-[#E6E6E6] rounded-[10px] m-2 flex-col relative top-20 mx-auto"
+                        "flex bg-white  md:w-[40%] md:h-[70%] w-[90%] h-[80%] border-[1px] border-[#E6E6E6] rounded-[10px] m-2 flex-col relative top-20 mx-auto"
                     }
                 >
                     <div
