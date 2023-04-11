@@ -57,6 +57,7 @@ const Layout = () => {
                     console.log("close");
                     setCreateJobDialog(false);
                 }}
+                jobDialogData={jobDialogData}
             />
         </div>
     );

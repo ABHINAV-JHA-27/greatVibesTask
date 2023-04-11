@@ -1,18 +1,29 @@
 import axios from "axios";
 import { useState } from "react";
 
-const CreateForm = ({ visible, close }) => {
-    const [jobTitle, setJobTitle] = useState("");
-    const [companyName, setCompanyName] = useState("");
-    const [industry, setIndustry] = useState("");
-    const [location, setLocation] = useState("");
-    const [remoteType, setRemoteType] = useState("");
-    const [minExperience, setMinExperience] = useState("");
-    const [maxExperience, setMaxExperience] = useState("");
-    const [minSalary, setMinSalary] = useState("");
-    const [maxSalary, setMaxSalary] = useState("");
-    const [totalEmployees, setTotalEmployees] = useState("");
-    const [applyType, setApplyType] = useState("");
+const CreateForm = ({ visible, close, jobDialogData = null }) => {
+    console.log("==>>> ", jobDialogData);
+    const [jobTitle, setJobTitle] = useState("" || jobDialogData.jobTitle);
+    const [companyName, setCompanyName] = useState(
+        "" || jobDialogData.companyName
+    );
+    const [industry, setIndustry] = useState("" || jobDialogData.industry);
+    const [location, setLocation] = useState("" || jobDialogData.location);
+    const [remoteType, setRemoteType] = useState(
+        "" || jobDialogData.remoteType
+    );
+    const [minExperience, setMinExperience] = useState(
+        "" || jobDialogData.minExperience
+    );
+    const [maxExperience, setMaxExperience] = useState(
+        "" || jobDialogData.maxExperience
+    );
+    const [minSalary, setMinSalary] = useState("" || jobDialogData.minSalary);
+    const [maxSalary, setMaxSalary] = useState("" || jobDialogData.maxSalary);
+    const [totalEmployees, setTotalEmployees] = useState(
+        "" || jobDialogData.totalEmployees
+    );
+    const [applyType, setApplyType] = useState("" || jobDialogData.applyType);
 
     const [jobTitleError, setJobTitleError] = useState(false);
     const [companyNameError, setCompanyNameError] = useState(false);
@@ -43,26 +54,49 @@ const CreateForm = ({ visible, close }) => {
     };
 
     const handleSubmit = async () => {
-        await axios
-            .post(
-                `https://64345dd51c5ed06c9595de94.mockapi.io/api/job`,
-                JSON.stringify({
-                    jobTitle: jobTitle,
-                    companyName: companyName,
-                    industry: industry,
-                    location: location,
-                    remoteType: remoteType,
-                    minExperience: minExperience,
-                    maxExperience: maxExperience,
-                    minSalary: minSalary,
-                    maxSalary: maxSalary,
-                    totalEmployees: totalEmployees,
-                    applyType: applyType,
-                })
-            )
-            .then(() => {
-                close();
-            });
+        if (jobDialogData) {
+            await axios
+                .put(
+                    `https://64345dd51c5ed06c9595de94.mockapi.io/api/job/${jobDialogData.id}`,
+                    JSON.stringify({
+                        jobTitle: jobTitle,
+                        companyName: companyName,
+                        industry: industry,
+                        location: location,
+                        remoteType: remoteType,
+                        minExperience: minExperience,
+                        maxExperience: maxExperience,
+                        minSalary: minSalary,
+                        maxSalary: maxSalary,
+                        totalEmployees: totalEmployees,
+                        applyType: applyType,
+                    })
+                )
+                .then(() => {
+                    close();
+                });
+        } else {
+            await axios
+                .post(
+                    `https://64345dd51c5ed06c9595de94.mockapi.io/api/job`,
+                    JSON.stringify({
+                        jobTitle: jobTitle,
+                        companyName: companyName,
+                        industry: industry,
+                        location: location,
+                        remoteType: remoteType,
+                        minExperience: minExperience,
+                        maxExperience: maxExperience,
+                        minSalary: minSalary,
+                        maxSalary: maxSalary,
+                        totalEmployees: totalEmployees,
+                        applyType: applyType,
+                    })
+                )
+                .then(() => {
+                    close();
+                });
+        }
     };
 
     if (!visible) return null;
@@ -73,7 +107,7 @@ const CreateForm = ({ visible, close }) => {
                     <div className="flex flex-row w-[96%] ml-4 mt-5 items-center">
                         <div className="flex w-[50%]">
                             <span className="text-base font-medium text-black font-[poppins]">
-                                Create a Job
+                                {jobDialogData ? "Edit" : "Create a"} Job
                             </span>
                         </div>
                         <div className="flex w-[50%]">
@@ -210,7 +244,7 @@ const CreateForm = ({ visible, close }) => {
                                     "text-base font-medium text-black font-[poppins]"
                                 }
                             >
-                                Create a Job
+                                {jobDialogData ? "Edit" : "Create a"} Job
                             </span>
                         </div>
                         <div className={"flex w-[50%]"}>

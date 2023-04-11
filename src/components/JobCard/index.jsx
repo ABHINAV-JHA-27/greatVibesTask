@@ -32,8 +32,20 @@ const JobCard = ({
             maxSalary,
             totalEmployees,
             applyType,
-            setCreateJobDialog,
-            setJobDialogData,
+        });
+        console.log({
+            id,
+            jobTitle,
+            companyName,
+            industry,
+            location,
+            remoteType,
+            minExperience,
+            maxExperience,
+            minSalary,
+            maxSalary,
+            totalEmployees,
+            applyType,
         });
         setCreateJobDialog(true);
     };
