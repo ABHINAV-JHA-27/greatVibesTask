@@ -1,6 +1,5 @@
-import React from "react";
-import logo from "../../assets/logo.png";
 import axios from "axios";
+import logo from "../../assets/logo.png";
 
 const JobCard = ({
     id,
