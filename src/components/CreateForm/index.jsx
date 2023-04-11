@@ -19,6 +19,29 @@ const CreateForm = ({ visible }) => {
 
     const [showForm2, setShowForm2] = useState(false);
 
+    const handleNext = () => {
+        if (jobTitle === "") {
+            setJobTitleError(true);
+        } else {
+            setJobTitleError(false);
+        }
+        if (companyName === "") {
+            setCompanyNameError(true);
+        } else {
+            setCompanyNameError(false);
+        }
+        if (industry === "") {
+            setIndustryError(true);
+        } else {
+            setIndustryError(false);
+        }
+
+        if (jobTitle !== "" && companyName !== "" && industry !== "") {
+            setShowForm2(true);
+        }
+        setShowForm2(true);
+    };
+
     if (!visible) return null;
     return (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
@@ -292,38 +315,15 @@ const CreateForm = ({ visible }) => {
                         </div>
                     </div>
                     <div className="flex flex-row-reverse mx-4 mt-[12vh]">
-                        <div className="bg-[#1597E4] rounded-[5px] p-2 w-[6vw] text-center">
-                            <span
-                                className="text-white font-normal font-[poppins] font-medium text-base"
-                                onClick={() => {
-                                    if (jobTitle === "") {
-                                        setJobTitleError(true);
-                                    } else {
-                                        setJobTitleError(false);
-                                    }
-                                    if (companyName === "") {
-                                        setCompanyNameError(true);
-                                    } else {
-                                        setCompanyNameError(false);
-                                    }
-                                    if (industry === "") {
-                                        setIndustryError(true);
-                                    } else {
-                                        setIndustryError(false);
-                                    }
-
-                                    if (
-                                        jobTitle !== "" &&
-                                        companyName !== "" &&
-                                        industry !== ""
-                                    ) {
-                                        setShowForm2(true);
-                                    }
-                                }}
-                            >
-                                Next
-                            </span>
-                        </div>
+                        <button
+                            className="bg-[#1597E4] rounded-[5px] p-2 w-[6vw] text-center text-white font-normal font-[poppins] font-medium text-base"
+                            onClick={() => {
+                                handleNext();
+                                console.log("clicked");
+                            }}
+                        >
+                            Next
+                        </button>
                     </div>
                 </div>
             )}
