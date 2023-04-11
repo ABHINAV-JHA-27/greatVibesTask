@@ -1,12 +1,7 @@
-import JobsContext from "./context/JobsContext";
 import Layout from "./components/Layout";
 
 function App() {
-    return (
-        // <JobsContext>
-        <Layout />
-        // </JobsContext>
-    );
+    return <Layout />;
 }
 
 export default App;

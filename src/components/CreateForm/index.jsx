@@ -1,6 +1,7 @@
+import axios from "axios";
 import { useState } from "react";
 
-const CreateForm = ({ visible }) => {
+const CreateForm = ({ visible, close }) => {
     const [jobTitle, setJobTitle] = useState("");
     const [companyName, setCompanyName] = useState("");
     const [industry, setIndustry] = useState("");
@@ -39,7 +40,29 @@ const CreateForm = ({ visible }) => {
         if (jobTitle !== "" && companyName !== "" && industry !== "") {
             setShowForm2(true);
         }
-        setShowForm2(true);
+    };
+
+    const handleSubmit = async () => {
+        await axios
+            .post(
+                `https://64345dd51c5ed06c9595de94.mockapi.io/api/job`,
+                JSON.stringify({
+                    jobTitle: jobTitle,
+                    companyName: companyName,
+                    industry: industry,
+                    location: location,
+                    remoteType: remoteType,
+                    minExperience: minExperience,
+                    maxExperience: maxExperience,
+                    minSalary: minSalary,
+                    maxSalary: maxSalary,
+                    totalEmployees: totalEmployees,
+                    applyType: applyType,
+                })
+            )
+            .then(() => {
+                close();
+            });
     };
 
     if (!visible) return null;
@@ -134,23 +157,27 @@ const CreateForm = ({ visible }) => {
                                 </span>
                             </div>
                             <div className="mt-1 flex flex-row">
-                                <div class="flex items-center mx-4">
+                                <div className="flex items-center mx-4">
                                     <input
                                         type="radio"
-                                        value=""
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                        value="Quick Apply"
+                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                        checked={applyType === "Quick Apply"}
+                                        onChange={setApplyType}
                                     />
-                                    <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                    <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                         Quick Apply
                                     </label>
                                 </div>
-                                <div class="flex items-center mx-4">
+                                <div className="flex items-center mx-4">
                                     <input
                                         type="radio"
-                                        value=""
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                        value="External Apply"
+                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                        checked={applyType === "External Apply"}
+                                        onChange={setApplyType}
                                     />
-                                    <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                    <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                         External Apply
                                     </label>
                                 </div>
@@ -158,11 +185,12 @@ const CreateForm = ({ visible }) => {
                         </div>
                     </div>
                     <div className="flex flex-row-reverse mx-4 mt-[12vh]">
-                        <div className="bg-[#1597E4] rounded-[5px] p-2 w-[6vw] text-center">
-                            <span className="text-white font-normal font-[poppins] font-medium text-base">
-                                Save
-                            </span>
-                        </div>
+                        <button
+                            className="bg-[#1597E4] rounded-[5px] p-2 w-[6vw] text-center text-white font-normal font-[poppins] font-medium text-base"
+                            onClick={handleSubmit}
+                        >
+                            Save
+                        </button>
                     </div>
                 </div>
             ) : (
@@ -215,7 +243,7 @@ const CreateForm = ({ visible }) => {
                                     }
                                     className={`border-[1px] ${
                                         jobTitleError
-                                            ? "border-red"
+                                            ? "border-[#ff0000]"
                                             : "border-[#E6E6E6]"
                                     } rounded-[5px] p-1 w-[100%]`}
                                 />
@@ -240,7 +268,7 @@ const CreateForm = ({ visible }) => {
                                     }
                                     className={`border-[1px] ${
                                         companyNameError
-                                            ? "border-red"
+                                            ? "border-[#ff0000]"
                                             : "border-[#E6E6E6]"
                                     } rounded-[5px] p-1 w-[100%]`}
                                 />
@@ -265,7 +293,7 @@ const CreateForm = ({ visible }) => {
                                     }
                                     className={`border-[1px] ${
                                         industryError
-                                            ? "border-red"
+                                            ? "border-[#ff0000]"
                                             : "border-[#E6E6E6]"
                                     } rounded-[5px] p-1 w-[100%]`}
                                 />
@@ -319,7 +347,6 @@ const CreateForm = ({ visible }) => {
                             className="bg-[#1597E4] rounded-[5px] p-2 w-[6vw] text-center text-white font-normal font-[poppins] font-medium text-base"
                             onClick={() => {
                                 handleNext();
-                                console.log("clicked");
                             }}
                         >
                             Next
