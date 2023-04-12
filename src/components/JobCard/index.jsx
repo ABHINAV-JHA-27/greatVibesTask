@@ -16,6 +16,7 @@ const JobCard = ({
     applyType,
     setCreateJobDialog,
     setJobDialogData,
+    setEdit,
 }) => {
     const handleEdit = () => {
         setJobDialogData({
@@ -32,7 +33,7 @@ const JobCard = ({
             totalEmployees,
             applyType,
         });
-
+        setEdit(true);
         setCreateJobDialog(true);
     };
     const handleDelete = async () => {
@@ -42,8 +43,8 @@ const JobCard = ({
     };
 
     return (
-        <div className="flex bg-white md:w-[47%] md:h-[45%] w-[90%] h-[42%] border-[1px] border-[#DADEDF] rounded-[10px] m-2 flex-col overflow-hidden">
-            <div className="flex flex-row w-[100%] m-2">
+        <div className="flex bg-white md:w-[47%] w-[90%] border-[1px] border-[#DADEDF] rounded-[10px] m-2 flex-col overflow-hidden">
+            <div className="flex flex-row w-[98%] m-2">
                 <div className="flex flex-col w-[10%]">
                     <img
                         src={logo}
@@ -103,7 +104,7 @@ const JobCard = ({
                         </div>
                     )}
                 </div>
-                <div className="flex-col w-[8%] m-4">
+                <div className="flex flex-col w-[8%] m-4">
                     <button onClick={handleEdit}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

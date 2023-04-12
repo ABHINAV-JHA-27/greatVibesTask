@@ -6,6 +6,7 @@ import JobCard from "./JobCard";
 const Layout = () => {
     const [createJobDialog, setCreateJobDialog] = useState(false);
     const [jobDialogData, setJobDialogData] = useState({});
+    const [edit, setEdit] = useState(false);
     const [jobs, setJobs] = useState([]);
 
     useEffect(() => {
@@ -47,6 +48,7 @@ const Layout = () => {
                             applyType={job.applyType}
                             setCreateJobDialog={setCreateJobDialog}
                             setJobDialogData={setJobDialogData}
+                            setEdit={setEdit}
                         />
                     );
                 })}
@@ -57,6 +59,7 @@ const Layout = () => {
                     setCreateJobDialog(false);
                 }}
                 jobDialogData={jobDialogData}
+                edit={edit}
             />
         </div>
     );
