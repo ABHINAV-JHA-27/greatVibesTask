@@ -2,12 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import CreateForm from "./CreateForm";
 import JobCard from "./JobCard";
+import { data } from "@/constants/data";
 
 const Layout = () => {
     const [createJobDialog, setCreateJobDialog] = useState(false);
     const [jobDialogData, setJobDialogData] = useState({});
     const [edit, setEdit] = useState(false);
     const [jobs, setJobs] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         axios
@@ -15,7 +17,8 @@ const Layout = () => {
             .then((res) => {
                 setJobs(res.data);
             });
-    }, []);
+        setLoading(false);
+    }, [loading]);
 
     return (
         <div className="fixed bg-[#D8D8D8] flex flex-col h-full w-full">
@@ -30,7 +33,7 @@ const Layout = () => {
                 </button>
             </div>
             <div className="flex flex-row flex-wrap w-[100%] justify-around mt-12 gap-y-5 overflow-scroll">
-                {jobs.map((job) => {
+                {data.map((job) => {
                     return (
                         <JobCard
                             key={job.id}
@@ -49,6 +52,30 @@ const Layout = () => {
                             setCreateJobDialog={setCreateJobDialog}
                             setJobDialogData={setJobDialogData}
                             setEdit={setEdit}
+                            setLoading={setLoading}
+                        />
+                    );
+                })}
+                {jobs?.map((job) => {
+                    return (
+                        <JobCard
+                            key={job.id}
+                            id={job.id}
+                            jobTitle={job.jobTitle}
+                            companyName={job.companyName}
+                            industry={job.industry}
+                            location={job.location}
+                            remoteType={job.remoteType}
+                            minExperience={job.minExperience}
+                            maxExperience={job.maxExperience}
+                            minSalary={job.minSalary}
+                            maxSalary={job.maxSalary}
+                            totalEmployees={job.totalEmployees}
+                            applyType={job.applyType}
+                            setCreateJobDialog={setCreateJobDialog}
+                            setJobDialogData={setJobDialogData}
+                            setEdit={setEdit}
+                            setLoading={setLoading}
                         />
                     );
                 })}
@@ -60,6 +87,7 @@ const Layout = () => {
                 }}
                 jobDialogData={jobDialogData}
                 edit={edit}
+                setLoading={setLoading}
             />
         </div>
     );

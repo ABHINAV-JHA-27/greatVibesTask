@@ -17,6 +17,7 @@ const JobCard = ({
     setCreateJobDialog,
     setJobDialogData,
     setEdit,
+    setLoading,
 }) => {
     const handleEdit = () => {
         setJobDialogData({
@@ -40,6 +41,7 @@ const JobCard = ({
         await axios.delete(
             `https://64345dd51c5ed06c9595de94.mockapi.io/api/job/${id}`
         );
+        setLoading(true);
     };
 
     return (

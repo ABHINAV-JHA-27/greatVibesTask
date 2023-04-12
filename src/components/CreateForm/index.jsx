@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-const CreateForm = ({ visible, close, jobDialogData, edit }) => {
+const CreateForm = ({ visible, close, jobDialogData, edit, setLoading }) => {
     const [jobTitle, setJobTitle] = useState(
         edit ? jobDialogData.jobTitle : ""
     );
@@ -96,6 +96,7 @@ const CreateForm = ({ visible, close, jobDialogData, edit }) => {
                     }
                 )
                 .then(() => {
+                    setLoading(true);
                     close();
                 });
         } else {
@@ -114,6 +115,7 @@ const CreateForm = ({ visible, close, jobDialogData, edit }) => {
                     applyType: applyType,
                 })
                 .then(() => {
+                    setLoading(true);
                     close();
                 });
         }
