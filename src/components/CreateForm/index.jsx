@@ -32,10 +32,20 @@ const CreateForm = ({ visible, close, jobDialogData, edit }) => {
     const [totalEmployees, setTotalEmployees] = useState(
         edit ? jobDialogData.totalEmployees : ""
     );
-    const [applyType, setApplyType] = useState(
-        edit ? jobDialogData.applyType : ""
+    const [applyNow, setApplyNow] = useState(
+        edit ? (jobDialogData.applyType == "Quick Apply" ? true : false) : false
+    );
+    const [applyExternal, setApplyExternal] = useState(
+        edit
+            ? jobDialogData.applyType == "External Apply"
+                ? true
+                : false
+            : false
     );
 
+    const [applyType, setApplyType] = useState(
+        edit ? (jobDialogData.applyType == "Quick Apply" ? true : false) : false
+    );
     const [jobTitleError, setJobTitleError] = useState(false);
     const [companyNameError, setCompanyNameError] = useState(false);
     const [industryError, setIndustryError] = useState(false);
@@ -68,11 +78,10 @@ const CreateForm = ({ visible, close, jobDialogData, edit }) => {
 
     const handleSubmit = async () => {
         if (edit) {
-            console.log("edit");
             await axios
                 .put(
                     `https://64345dd51c5ed06c9595de94.mockapi.io/api/job/${jobDialogData.id}`,
-                    JSON.stringify({
+                    {
                         jobTitle: jobTitle,
                         companyName: companyName,
                         industry: industry,
@@ -84,30 +93,26 @@ const CreateForm = ({ visible, close, jobDialogData, edit }) => {
                         maxSalary: maxSalary,
                         totalEmployees: totalEmployees,
                         applyType: applyType,
-                    })
+                    }
                 )
                 .then(() => {
                     close();
                 });
         } else {
-            console.log("create");
             await axios
-                .post(
-                    `https://64345dd51c5ed06c9595de94.mockapi.io/api/job`,
-                    JSON.stringify({
-                        jobTitle: jobTitle,
-                        companyName: companyName,
-                        industry: industry,
-                        location: location,
-                        remoteType: remoteType,
-                        minExperience: minExperience,
-                        maxExperience: maxExperience,
-                        minSalary: minSalary,
-                        maxSalary: maxSalary,
-                        totalEmployees: totalEmployees,
-                        applyType: applyType,
-                    })
-                )
+                .post(`https://64345dd51c5ed06c9595de94.mockapi.io/api/job`, {
+                    jobTitle: jobTitle,
+                    companyName: companyName,
+                    industry: industry,
+                    location: location,
+                    remoteType: remoteType,
+                    minExperience: minExperience,
+                    maxExperience: maxExperience,
+                    minSalary: minSalary,
+                    maxSalary: maxSalary,
+                    totalEmployees: totalEmployees,
+                    applyType: applyType,
+                })
                 .then(() => {
                     close();
                 });
@@ -212,10 +217,13 @@ const CreateForm = ({ visible, close, jobDialogData, edit }) => {
                                             type="radio"
                                             value="Quick Apply"
                                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                            checked={
-                                                applyType === "Quick Apply"
-                                            }
-                                            onChange={setApplyType}
+                                            checked={applyNow}
+                                            onChange={() => {
+                                                setApplyNow(true);
+                                                if (applyExternal)
+                                                    setApplyExternal(false);
+                                                setApplyType("Quick Apply");
+                                            }}
                                         />
                                         <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                             Quick Apply
@@ -226,10 +234,13 @@ const CreateForm = ({ visible, close, jobDialogData, edit }) => {
                                             type="radio"
                                             value="External Apply"
                                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                            checked={
-                                                applyType === "External Apply"
-                                            }
-                                            onChange={setApplyType}
+                                            checked={applyExternal}
+                                            onChange={() => {
+                                                setApplyExternal(true);
+                                                if (applyNow)
+                                                    setApplyNow(false);
+                                                setApplyType("External Apply");
+                                            }}
                                         />
                                         <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                             External Apply
